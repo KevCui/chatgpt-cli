@@ -12,12 +12,13 @@
 
 ## Dependency
 
-- [playwright-chromium](https://github.com/Microsoft/playwright)
+- [playwright-extra](https://www.npmjs.com/package/playwright-extra)
+- [playwright-extra-plugin-stealth](https://www.npmjs.com/package/puppeteer-extra-plugin-stealth)
 
 ## Installation
 
 ```bash
-npm i playwright-chromium puppeteer-extra-plugin-stealth
+npm i playwright-extra puppeteer-extra-plugin-stealth
 npx playwright install chromium
 ```
 
