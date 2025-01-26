@@ -10,7 +10,7 @@ const buttonSubmit = '[data-testid="send-button"]';
 const textareaSearchBox = '#prompt-textarea';
 const textMessage = '.markdown';
 const totalLoopCount = 60;
-const printIntervalTime = 500;
+const printIntervalTime = 1000;
 
 chromium.launch({ headless: true, timeout: 30000 }).then(async browser => {
   // Set page 
