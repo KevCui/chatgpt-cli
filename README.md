@@ -44,8 +44,7 @@ $ xvfb-run ./chatgpt.js "enter any text here"
 
 ## Want an alternative?
 
-Check out [copilot-cli](https://github.com/KevCui/copilot-cli)
-And [DuckAI-cli](https://github.com/KevCui/duckai-cli)
+Check out [copilot-cli](https://github.com/KevCui/copilot-cli) and [DuckAI-cli](https://github.com/KevCui/duckai-cli)
 
 ## Note
 
