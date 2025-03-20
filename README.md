@@ -24,13 +24,28 @@ npx playwright install chromium
 
 ## How to use
 
+- Basic usage:
+
 ```bash
 $ ./chatgpt.js "enter any text here"
+```
+
+- Turn on web search feature:
+
+```bash
+$ ./chatgpt.js "enter any text here" true
+```
+
+- Run in headless mode
+
+```bash
+$ xvfb-run ./chatgpt.js "enter any text here"
 ```
 
 ## Want an alternative?
 
 Check out [copilot-cli](https://github.com/KevCui/copilot-cli)
+And [DuckAI-cli](https://github.com/KevCui/duckai-cli)
 
 ## Note
 
