@@ -11,7 +11,14 @@ const buttonStop = '[data-testid="stop-button"]';
 const textareaSearchBox = '#prompt-textarea';
 const textMessage = '.markdown';
 
-chromium.launch({ headless: true, timeout: 30000 }).then(async browser => {
+async function printReply(page) {
+  const result = await page.locator(textMessage).innerText();
+  const resultStr = result.toString();
+  console.clear();
+  console.log('----------\n' + resultStr);
+}
+
+chromium.launch({ headless: false, timeout: 30000 }).then(async browser => {
   // Set page 
   const context = await browser.newContext({});
   const page = await context.newPage();
@@ -24,14 +31,12 @@ chromium.launch({ headless: true, timeout: 30000 }).then(async browser => {
   await page.click(buttonSubmit);
 
   // Get reply
-  await page.waitForTimeout(1000); 
   const stop = page.locator(buttonStop);
   while (await stop.count() > 0) {
-    const result = await page.locator(textMessage).allInnerTexts();
-    const resultStr = result.toString();
-    console.clear();
-    console.log('----------\n' + resultStr);
+    await printReply(page);
   }
+  await page.waitForTimeout(1000);
+  await printReply(page);
 
   // Close browser
   await browser.close();

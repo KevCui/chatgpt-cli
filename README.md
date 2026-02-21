@@ -30,6 +30,12 @@ npx playwright install chromium
 $ ./chatgpt.js "enter any text here"
 ```
 
+- Run in headless mode:
+
+```bash
+$ xvfb-run .chatgpt.js "enter any text here"
+```
+
 ## Want an alternative?
 
 Check out [copilot-cli](https://github.com/KevCui/copilot-cli) and [DuckAI-cli](https://github.com/KevCui/duckai-cli)
