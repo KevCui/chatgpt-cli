@@ -18,7 +18,7 @@
 ## Installation
 
 ```bash
-npm i playwright-extra puppeteer-extra-plugin-stealth
+npm i playwright-extra puppeteer-extra-plugin-stealth playwright-core
 npx playwright install chromium
 ```
 
@@ -28,18 +28,6 @@ npx playwright install chromium
 
 ```bash
 $ ./chatgpt.js "enter any text here"
-```
-
-- Turn on web search feature:
-
-```bash
-$ ./chatgpt.js "enter any text here" true
-```
-
-- Run in headless mode
-
-```bash
-$ xvfb-run ./chatgpt.js "enter any text here"
 ```
 
 ## Want an alternative?
