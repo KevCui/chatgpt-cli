@@ -12,7 +12,7 @@
 ## Dependency
 
 - [playwright-extra](https://www.npmjs.com/package/playwright-extra)
-- [playwright-extra-plugin-stealth](https://www.npmjs.com/package/puppeteer-extra-plugin-stealth)
+- [puppeteer-extra-plugin-stealth](https://www.npmjs.com/package/puppeteer-extra-plugin-stealth)
 - [node-html-markdown](https://github.com/crosstype/node-html-markdown)
 
 ## Installation
