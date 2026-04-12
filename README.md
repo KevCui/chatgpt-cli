@@ -7,18 +7,18 @@
 - [Dependency](#dependency)
 - [Installation](#installation)
 - [How to use](#how-to-use)
-- [Want an alternative?](#want-an-alternative)
 - [Note](#note)
 
 ## Dependency
 
 - [playwright-extra](https://www.npmjs.com/package/playwright-extra)
 - [playwright-extra-plugin-stealth](https://www.npmjs.com/package/puppeteer-extra-plugin-stealth)
+- [node-html-markdown](https://github.com/crosstype/node-html-markdown)
 
 ## Installation
 
 ```bash
-npm i playwright-extra puppeteer-extra-plugin-stealth playwright-core
+npm i playwright-extra puppeteer-extra-plugin-stealth playwright-core node-html-markdown
 npx playwright install chromium
 ```
 
@@ -35,10 +35,6 @@ $ ./chatgpt.js "enter any text here"
 ```bash
 $ xvfb-run .chatgpt.js "enter any text here"
 ```
-
-## Want an alternative?
-
-Check out [copilot-cli](https://github.com/KevCui/copilot-cli) and [DuckAI-cli](https://github.com/KevCui/duckai-cli)
 
 ## Note
 
