@@ -6,7 +6,7 @@ const stealth = require('puppeteer-extra-plugin-stealth')();
 chromium.use(stealth);
 
 const searchText = process.argv[2];
-const url = 'https://chatgpt.com/?hints=search';
+const url = 'https://chatgpt.com';
 const buttonSubmit = '[data-testid="send-button"]';
 const buttonStop = '[data-testid="stop-button"]';
 const textareaSearchBox = '#prompt-textarea';
@@ -40,6 +40,11 @@ chromium.launch({ headless: false, timeout: timeout }).then(async browser => {
         previousHtml = currentHtml;
       }
   }
+
+  const currentHtml = await page.locator(textMessage).innerHTML();
+  process.stdout.write('\x1B\[2J\x1B\[3J\x1B\[H');
+  const markdown = NodeHtmlMarkdown.translate(currentHtml);
+  console.log(markdown);
 
   // Close browser
   await browser.close();
