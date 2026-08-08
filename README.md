@@ -11,29 +11,20 @@
 
 ## Dependency
 
-- [playwright-extra](https://www.npmjs.com/package/playwright-extra)
-- [puppeteer-extra-plugin-stealth](https://www.npmjs.com/package/puppeteer-extra-plugin-stealth)
+- [playwright-core](https://github.com/microsoft/playwright)
+- [cloakbrowser](https://github.com/CloakHQ/CloakBrowser)
 - [node-html-markdown](https://github.com/crosstype/node-html-markdown)
 
 ## Installation
 
 ```bash
-npm i playwright-extra puppeteer-extra-plugin-stealth playwright-core node-html-markdown
-npx playwright install chromium
+npm i playwright-core cloakbrowser node-html-markdown
 ```
 
 ## How to use
 
-- Basic usage:
-
 ```bash
 $ ./chatgpt.js "enter any text here"
-```
-
-- Run in headless mode:
-
-```bash
-$ xvfb-run .chatgpt.js "enter any text here"
 ```
 
 ## Note

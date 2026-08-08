@@ -1,12 +1,11 @@
 #!/usr/bin/env node
 
-const { chromium } = require('playwright-extra');
+process.env.CLOAKBROWSER_AUTO_UPDATE = 'false';
+
 const { NodeHtmlMarkdown } = require('node-html-markdown');
-const stealth = require('puppeteer-extra-plugin-stealth')();
-chromium.use(stealth);
 
 const searchText = process.argv[2];
-const url = 'https://chatgpt.com';
+const url = 'https://chatgpt.com/';
 const buttonSubmit = '[data-testid="send-button"]';
 const buttonStop = '[data-testid="stop-button"]';
 const textareaSearchBox = '#prompt-textarea';
@@ -14,10 +13,12 @@ const textMessage = '.markdown';
 const timer = 500;
 const timeout = 30000;
 
-chromium.launch({ headless: false, timeout: timeout }).then(async browser => {
+async function main() {
+  const { launch } = await import('cloakbrowser');
+  const browser = await launch({ headless: true });
+
   // Set page 
-  const context = await browser.newContext({});
-  const page = await context.newPage();
+  const page = await browser.newPage();
 
   // Start page
   await page.goto(url, { waitUntil: 'domcontentloaded' });
@@ -34,18 +35,20 @@ chromium.launch({ headless: false, timeout: timeout }).then(async browser => {
       await page.waitForSelector(textMessage, { timeout: timeout });
       const currentHtml = await page.locator(textMessage).innerHTML();
       if (currentHtml !== previousHtml) {
-        process.stdout.write('\x1B\[2J\x1B\[3J\x1B\[H');
-        const markdown = NodeHtmlMarkdown.translate(currentHtml);
-        console.log(markdown || '(empty)');
-        previousHtml = currentHtml;
+          process.stdout.write('\x1B\[2J\x1B\[3J\x1B\[H');
+          const markdown = NodeHtmlMarkdown.translate(currentHtml);
+          console.log(markdown || '(empty)');
+          previousHtml = currentHtml;
       }
   }
 
-  const currentHtml = await page.locator(textMessage).innerHTML();
   process.stdout.write('\x1B\[2J\x1B\[3J\x1B\[H');
+  const currentHtml = await page.locator(textMessage).innerHTML();
   const markdown = NodeHtmlMarkdown.translate(currentHtml);
   console.log(markdown);
 
   // Close browser
   await browser.close();
-});
+}
+
+main().catch(console.error);
