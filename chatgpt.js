@@ -11,28 +11,25 @@ const buttonStop = '[data-testid="stop-button"]';
 const textareaSearchBox = '#prompt-textarea';
 const textMessage = '.markdown';
 const timer = 500;
-const timeout = 30000;
 
 async function main() {
   const { launch } = await import('cloakbrowser');
   const browser = await launch({ headless: true });
-
-  // Set page 
   const page = await browser.newPage();
 
-  // Start page
+  console.log("Connecting site...")
   await page.goto(url, { waitUntil: 'domcontentloaded' });
 
-  // Submit question
-  await page.fill(textareaSearchBox, searchText);
+  console.log("Sending prompt...")
+  await page.fill(textareaSearchBox, searchText, { timeout: 5000 });
   await page.click(buttonSubmit);
 
-  // Get reply
+  console.log("Receiving response...")
   let previousHtml = '';
   const stop = page.locator(buttonStop);
   while (await stop.count() > 0) {
       await page.waitForTimeout(timer);
-      await page.waitForSelector(textMessage, { timeout: timeout });
+      await page.waitForSelector(textMessage, { timeout: 30000 });
       const currentHtml = await page.locator(textMessage).innerHTML();
       if (currentHtml !== previousHtml) {
           process.stdout.write('\x1B\[2J\x1B\[3J\x1B\[H');
@@ -47,7 +44,6 @@ async function main() {
   const markdown = NodeHtmlMarkdown.translate(currentHtml);
   console.log(markdown);
 
-  // Close browser
   await browser.close();
 }
 
