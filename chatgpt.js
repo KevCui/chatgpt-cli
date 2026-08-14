@@ -21,7 +21,9 @@ async function main() {
   await page.goto(url, { waitUntil: 'domcontentloaded' });
 
   console.log("Sending prompt...")
-  await page.fill(textareaSearchBox, searchText, { timeout: 5000 });
+  const input = page.locator(textareaSearchBox);
+  await input.click();
+  await input.type(searchText, { timeout: 5000 });
   await page.click(buttonSubmit);
 
   console.log("Receiving response...")
