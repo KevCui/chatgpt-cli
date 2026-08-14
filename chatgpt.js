@@ -3,35 +3,29 @@
 process.env.CLOAKBROWSER_AUTO_UPDATE = 'false';
 
 const { NodeHtmlMarkdown } = require('node-html-markdown');
+const { devices } = require('playwright-core');
 
-const searchText = process.argv[2];
-const url = 'https://chatgpt.com/';
-const buttonSubmit = '[data-testid="send-button"]';
-const buttonStop = '[data-testid="stop-button"]';
-const textareaSearchBox = '#prompt-textarea';
-const textMessage = '.markdown';
+const url = 'https://chatgpt.com/?q=' + process.argv[2];
+const buttonStop = '.wm-composer-stopIcon .wm-composer-icon';
+const textMessage = '._wdUoQG_assistantMessage ._wdUoQG_messageCopy';
 const timer = 500;
 
 async function main() {
   const { launch } = await import('cloakbrowser');
   const browser = await launch({ headless: true });
-  const page = await browser.newPage();
+  const iPhone15 = devices['iPhone 15'];
+  const context = await browser.newContext({
+    ...iPhone15,
+  });
+  const page = await context.newPage();
 
-  console.log("Connecting site...")
+  console.log("Connecting site...");
   await page.goto(url, { waitUntil: 'domcontentloaded' });
 
-  console.log("Sending prompt...")
-  const input = page.locator(textareaSearchBox);
-  await input.click();
-  await input.type(searchText, { timeout: 5000 });
-  await page.click(buttonSubmit);
-
-  console.log("Receiving response...")
+  console.log("Receiving response...");
   let previousHtml = '';
-  const stop = page.locator(buttonStop);
-  while (await stop.count() > 0) {
-      await page.waitForTimeout(timer);
-      await page.waitForSelector(textMessage, { timeout: 30000 });
+  await page.waitForTimeout(timer);
+  while (await page.locator(buttonStop).isVisible()) {
       const currentHtml = await page.locator(textMessage).innerHTML();
       if (currentHtml !== previousHtml) {
           process.stdout.write('\x1B\[2J\x1B\[3J\x1B\[H');
@@ -39,6 +33,7 @@ async function main() {
           console.log(markdown || '(empty)');
           previousHtml = currentHtml;
       }
+      await page.waitForTimeout(timer);
   }
 
   process.stdout.write('\x1B\[2J\x1B\[3J\x1B\[H');
