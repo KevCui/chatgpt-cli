@@ -25,21 +25,12 @@ async function main() {
   page = await context.newPage();
   await page.goto(url, { waitUntil: 'domcontentloaded' });
 
-  console.log("Receiving response...");
-  let previousHtml = '';
+  console.log("Receiving response...\n\n");
   await page.waitForTimeout(timer);
   while (await page.locator(buttonStop).isVisible()) {
-      const currentHtml = await page.locator(textMessage).innerHTML();
-      if (currentHtml !== previousHtml) {
-          process.stdout.write('\x1B\[2J\x1B\[3J\x1B\[H');
-          const markdown = NodeHtmlMarkdown.translate(currentHtml);
-          console.log(markdown || '(empty)');
-          previousHtml = currentHtml;
-      }
       await page.waitForTimeout(timer);
   }
 
-  process.stdout.write('\x1B\[2J\x1B\[3J\x1B\[H');
   const currentHtml = await page.locator(textMessage).innerHTML();
   const markdown = NodeHtmlMarkdown.translate(currentHtml);
   console.log(markdown);
