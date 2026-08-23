@@ -11,15 +11,18 @@ const textMessage = '._wdUoQG_assistantMessage ._wdUoQG_messageCopy';
 const timer = 500;
 
 async function main() {
+  console.log("Preparing browser...");
   const { launch } = await import('cloakbrowser');
   const browser = await launch({ headless: true });
   const iPhone15 = devices['iPhone 15'];
-  const context = await browser.newContext({
-    ...iPhone15,
-  });
-  const page = await context.newPage();
+  let context = await browser.newContext({ ...iPhone15 });
+  let page = await context.newPage();
+  await page.goto(url, { waitUntil: 'domcontentloaded' });
+  await context.close();
 
   console.log("Connecting site...");
+  context = await browser.newContext({ ...iPhone15 });
+  page = await context.newPage();
   await page.goto(url, { waitUntil: 'domcontentloaded' });
 
   console.log("Receiving response...");
